@@ -10,7 +10,7 @@ import (
 func main() {
 	r := reader.NewUbuntuReader()
 	n := notification.NewBeeepNotifier()
-	a, err := application.NewApplication(r, n, 80, 17, 60, true)
+	a, err := application.NewApplication(r, n, 80, 20, 1, true)
 	if err != nil {
 		log.Fatal(err)
 	}
