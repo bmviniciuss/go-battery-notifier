@@ -82,19 +82,21 @@ func (a *Application) getBatteryStatus() (*domain.BatteryStatus, error) {
 }
 
 func (a *Application) interpretBatteryStatus(s *domain.BatteryStatus) {
+	if a.Debug {
+		fmt.Printf("DEBUG: %v\n", s)
+	}
 	if s.State == domain.Charging && s.Level >= a.UnplugAt {
 		unplugMessage := fmt.Sprintf("Your battery is already at %d%%! Please unplug now.", a.UnplugAt)
-		a.Notifier.Notify(a.title, unplugMessage)
 		if a.Debug {
 			fmt.Printf("Attention! %s\n", unplugMessage)
-
 		}
+		a.Notifier.Notify(a.title, unplugMessage)
 	} else if s.State == domain.Discharging && s.Level <= a.PlugAt {
 		plugMessage := fmt.Sprintf("Your battery is already at %d%%! Please plug now.", a.PlugAt)
-		a.Notifier.Notify(a.title, plugMessage)
 		if a.Debug {
 			fmt.Printf("Attention! You battery is already at %d%%. Please plug now.\n", a.PlugAt)
 		}
+		a.Notifier.Notify(a.title, plugMessage)
 	}
 }
 
