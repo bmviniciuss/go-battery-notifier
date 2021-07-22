@@ -2,7 +2,6 @@ package reader
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/bmviniciuss/go-battery-notifier/domain"
 	"os/exec"
 	"regexp"
@@ -18,7 +17,6 @@ func NewUbuntuReader() *UbuntuReader {
 
 func (u *UbuntuReader) Read() (*domain.BatteryStatus, error) {
 	raw, err := u.getRawDataFromSystem()
-	fmt.Println(raw)
 	if err != nil {
 		return &domain.BatteryStatus{}, err
 	}
